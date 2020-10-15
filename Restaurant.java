@@ -1,8 +1,10 @@
+
+
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class Restaurant {
     private static int time, servedCustomers;
@@ -36,17 +38,13 @@ public class Restaurant {
             threadTimeRemaining = remainingTime;
     }
 
-    public int activeThreadTimeRemaining(){
-        return 0;
-    }
-
     public void check(ArrayList<CustomerThread> customers){
         if (full.get()){
             if (avaliableSeats.availablePermits()==5) {
                 time += 5;
                 full.set(false);
                 try {
-                    TimeUnit.MILLISECONDS.sleep(100);
+                    TimeUnit.MILLISECONDS.sleep(4);
                 } catch (Exception e){
                     System.out.println("Restaurant sleep failed");
                 }
@@ -66,7 +64,6 @@ public class Restaurant {
                     enter(c);
                 } else {
                     full.set(true);
-                    System.out.println("The restaurant is full");
                     break;
                 }
             }
@@ -83,28 +80,21 @@ public class Restaurant {
         }
     }
 
-    public boolean allServed(){
+    public boolean allServed(){//Check to see if all of the customers have been served and have finished executing
         if (servedCustomers==totalCustomers && threadTimeRemaining <= 0){
             return true;
         }
         return false;
     }
 
-    public void updateFull(){
-        if (avaliableSeats.availablePermits()==0){
-            full.set(true);
-        }
-    }
-
-    public static void outputStats(){
+    public static void outputStats(){//Ouputs the statistics of the customers
 
         try {
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(4);//A wait to ensure that all threads have finished executing
         } catch (Exception e){
 
         }
-
-        System.out.println("Customer\tArrives\t\tSeats\tLeaves");
+        System.out.println("Customer\tArrives\t\tSeats\tLeaves");//Ouput formatting as per spec
         for (CustomerThread c:finishedCustomers){
             System.out.println(c);
         }
