@@ -3,8 +3,6 @@ COMP2240 Assignment 2 Problem 2
 File: Restaurant.java
 Author: Timothy Kemmis
 Std no. c3329386
-Description: A program to simulate a restaurant with limited seating complying with COVID restrictions
-by managing the seating resources between the incoming customers and waiting for cleaning if the restaurant reaches capacity
 */
 
 import java.util.ArrayList;
@@ -89,14 +87,16 @@ public class Restaurant {
         }
     }
 
-    public boolean allServed(){//Check to see if all of the customers have been served (entered) and have finished executing (eaten for their eating time)
+    //Check to see if all of the customers have been served (entered) and have finished executing (eaten for their eating time)
+    public boolean allServed(){
         if (servedCustomers==totalCustomers && threadTimeRemaining <= 0){
             return true;
         }
         return false;
     }
 
-    public static void outputStats(){//Ouputs the statistics of the customers
+    //Ouputs the statistics of the customers
+    public static void outputStats(){
 
         try {
             TimeUnit.MILLISECONDS.sleep(4);//A wait to ensure that the last threads have finished executing

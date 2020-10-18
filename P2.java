@@ -4,7 +4,8 @@ File: P2.java
 Author: Timothy Kemmis
 Std no. c3329386
 Description: A program to simulate a restaurant with limited seating complying with COVID restrictions
-by managing the seating resources between the incoming customers and waiting for cleaning if the restaurant reaches capacity
+by managing the seating resources between the incoming customers and waiting for cleaning if the restaurant reaches capacity.
+Solution implemented using a semaphore
 */
 
 import java.io.FileInputStream;
