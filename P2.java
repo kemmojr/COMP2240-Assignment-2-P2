@@ -12,12 +12,10 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
-
 
 public class P2 {
     public static void main(String args[]){
-        Semaphore availableSeats = new Semaphore(5);//Semaphore to manage the number of empty/filled seats
+        Semaphore availableSeats = new Semaphore(5, true);//Semaphore to manage the number of empty/filled seats
 
         ArrayList<CustomerThread> customers = new ArrayList<>();//Arraylist for storing the CustomerThreads read in from the file
         int numCustomers = 0;//Total number of customers in the file
@@ -48,13 +46,8 @@ public class P2 {
         Restaurant restaurant = new Restaurant(availableSeats, numCustomers);//A restaurant class for managing the seating in the restaurant
 
         while (!restaurant.allServed()){//While loop that continues until all customers have been served, checking and starting the threads at the correct time
-            try {
-                TimeUnit.MILLISECONDS.sleep(2);//Wait statement to ensure that the threads or method checks don't execute out of order and time does not increase too rapidly
-                restaurant.check(customers);//Enters and waits the customer threads as necessary
-                TimeUnit.MILLISECONDS.sleep(2);//See above reason
-            } catch (Exception e){
-                System.out.println("Main Sleep failed");
-            }
+
+            restaurant.check(customers);//Enters and waits the customer threads as necessary
             Restaurant.incrementTime();//Increments the time
         }
         Restaurant.outputStats();//Outputs the customer statistics as per the spec

@@ -37,8 +37,18 @@ public class Restaurant {
 
     //increments the time and negates the passed time from the time left to finish the longest running thread
     public static void incrementTime(){
+        try {
+            TimeUnit.MILLISECONDS.sleep(4);//A wait to ensure that the last threads have finished executing
+        } catch (Exception e){
+            System.out.println("Time wait failed");
+        }
         time++;
         threadTimeRemaining--;
+        try {
+            TimeUnit.MILLISECONDS.sleep(4);//A wait to ensure that the last threads have finished executing
+        } catch (Exception e){
+            System.out.println("Time wait failed");
+        }
     }
 
     //Updates the time left to finish the longest running thread if the argument (the time to finish the current thread) will finish at a later time
